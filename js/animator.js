@@ -1,6 +1,6 @@
 window.exports = {};
+window.exports.load = function(){};
 
-exports.load = function(){
 	var opts = {
 		container: document.getElementById('text_container'),
 		camera: null,
@@ -9,7 +9,8 @@ exports.load = function(){
 		renderer: null,
 		text: {
 			canvas: null
-		}
+		},
+		targetRotation: 0
 	};
 
 	function setup(){
@@ -24,7 +25,8 @@ exports.load = function(){
 			size: 80,
 			height: 20,
 			curveSegments: 2,
-			font: "blackout"
+			font: "blackout",
+			weight: 'bold'
 		});
 
 		text3d.computeBoundingBox();
@@ -69,8 +71,9 @@ exports.load = function(){
 	}
 
 	function render(){
-		group.rotation.y += ( targetRotation - group.rotation.y ) * 0.05;
-		renderer.render( scene, camera );
+		
+		opts.group.rotation.y += ( opts.targetRotation - opts.group.rotation.y ) * 0.05;
+		opts.renderer.render( opts.scene, opts.camera );
 	}
 
 	function animate(){
@@ -83,4 +86,5 @@ exports.load = function(){
    	drawTextInternal('hello world');
    	setupCanvas();
    	render(); 
-}
+
+
