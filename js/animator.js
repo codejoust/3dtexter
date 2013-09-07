@@ -1,7 +1,7 @@
 window.exports = {};
 
 window.exports.load = function(){
-	var opts = {
+	var opts = this.opts = {
 		container: document.getElementById('text_container'),
 		camera: null,
 		group: null,
@@ -21,33 +21,37 @@ window.exports.load = function(){
 	}
 
 	this.drawTextInternal = function(text){
-		var text3d = new THREE.TextGeometry( text, {
-			size: 120,
+		var options = {
+			size: 100,
 			height: 60,
-			hover: 20,
-			curveSegments: 4,
+			hover: 40,
+			curveSegments: 5,
 			bevelThickness: 0.02,
 			belvelSize: 0.02,
 			bevelSegments: 8,
 			bevelEnabled: false,
-			font: "blackout",
-			weight: 'bold'
-		});
+			font: "digital-7",
+			weight: 'normal'
+		};
+
+		var textShapes = new THREE.FontUtils.generateShapes( text, options );
+
+		var text3d = new THREE.ExtrudeGeometry( textShapes, options );
 
 		text3d.computeBoundingBox();
+
 		var centerOffset = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
 
-		var textMaterial =  new THREE.MeshPhongMaterial( { color: Math.random()*0xffffff, shading: THREE.SmoothShading } );
-
+		var textMaterial =  new THREE.MeshNormalMaterial( { color: Math.random()*0xffffff } );
 
 		text = new THREE.Mesh( text3d, textMaterial );
 		opts.text.canvas = text;
 
 		text.position.x = centerOffset;
-		text.position.y = 100;
-		text.position.z = -40;
+		text.position.y = 40;
+		text.position.z = 0;
 
-		text.rotation.x = -0.23;
+		text.rotation.x = 0;
 		text.rotation.y = Math.PI * 2;
 		return text;
 	}
@@ -92,6 +96,7 @@ window.exports.load = function(){
    	this.setupCanvas();
    	this.render(); 
 
+   	window.internals = this;
 }
 
 
