@@ -1,0 +1,27 @@
+/* CSS 1,2 & 3 and HTML5 reset stylesheet – April 21, 2012 http://demosthenes.info/blog/300/CSS3-HTML5-Stylesheet-Reset */
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+/* resets sizing mode for all elements */
+img { border: 0; }
+/* removes borders for images (this should not be applied with a wildcard selector, as doing so makes form elements disappear) */
+html, body { min-height: 100%; font-size: 12pt; }
+/* sets the body height of the browser, so backgrounds and div heights work correctly. Also sets em and rem units to exactly 10px, making sizing easier */
+body, ul, ol, dl { margin: 0; }
+/* Sets margin to 0 for lists and the body tag so that all content starts from the same position across all browsers */
+textarea { resize: vertical; }
+/* changes textarea resizing from "both" (UA default) to vertical only */
+/*	HTML5 CSS */
+article, aside, audio, footer, header, nav, section, video { display: block }
+/* For older browsers, such as Firefox 3.6, that understand HTML5 but render the elements as display: inline. Leaves elements like date, figure and HTML5 form inputs alone */
+input[type="submit"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner { border : 0px; }
+/* removes the inner border effect from focused buttons when using form elements in Firefox */
+input[type="search"]{-webkit-appearance:textfield;}
+input[type="submit"] { -webkit-appearance:none; }
+/* removes the OS X appearance from HTML 5 search inputs and submit buttons when viewed in Safari or Mobile Safari */
+/* OPTIONAL - USEFUL LAYOUT CSS */
+.right { float: right; margin-left: 2em; clear: right; }
+.left { float: left; margin-right: 2em; clear: left; }
+/* class shortcuts to floating any content left or right, e.g. <img src="x.jpg" class=right … />. Remember that you can use multiple classes so long as you put spaces between the class names: <img src="x.jpg" class="right other class" … /> */
+table { border-collapse: collapse; }
+th { background: #000; color: #fff; }
+td { padding: 1em; border: 1px solid black; }
+/* cleans up presentation of tables; reverses color of table header cells */
