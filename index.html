@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/style.css">
      <link rel="stylesheet" type="text/css" href="css/jquery.minicolors.css">
+     <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 
   </head>
   <body>
@@ -12,21 +13,6 @@
   <div id="top">
     <div id="header">
       <h3>3D Text Generator</h3>
-    </div>
-    <div class="share">
-      <!-- sharer links here -->
-      <a href="#" class="social">
-        <img src="img/white_email.png"/>
-      </a>
-      <a href="#" class="social">
-        <img src="img/white_facebook.png"/>
-      </a>
-      <a class="social" href="#">
-          <img src="img/white_tumblr.png"/>
-      </a>
-      <a class="social" href="#">
-        <img src="img/white_twitter.png"/>
-      </a>
     </div>
   </div>
 
@@ -38,15 +24,14 @@
     </div>
     <div id="input_text">
       <input type="text" id="text" maxlength="18" placeholder="Type text here"/>
-      <button type="button" id="start">start</button>
+      <button type="button" id="axis_x">rotate</button>
+      <button type="button" id="axis_y">flip</button>
+       <button type="button" id="start">start</button>
+
+
     </div>
     <div class="render_demo">
-      <button id="render">Render Gif</button>
     </div>
-
-    <button id="axis_x">x</button>
-    <button id="axis_y">y</button>
-
     <div id="fonts">
       <div id="helvetica" class="font">
         <div class="text">Aa</div>
@@ -84,6 +69,26 @@
 		<input type="hidden" id="hidden-input" class="demo" value="#b85dd4">
 	</div>
 
+  <div id="progressbar"></div>
+
+   <button id="render">Render Gif</button>
+   <div class="share">
+      <!-- sharer links here -->
+      <a href="#" class="social">
+        <img src="img/white_email.png"/>
+      </a>
+      <a href="#" class="social">
+        <img src="img/white_facebook.png"/>
+      </a>
+      <a class="social" href="#">
+          <img src="img/white_tumblr.png"/>
+      </a>
+      <a class="social" href="#">
+        <img src="img/white_twitter.png"/>
+      </a>
+    </div>
+
+
      </div>
 
   <script src="js/three.js"></script>
@@ -92,6 +97,7 @@
   <script src="js/base64.js"></script>
   <script src="js/animator.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="js/jquery.minicolors.js"></script>
   <script src="js/script.js"></script>
   <script>
