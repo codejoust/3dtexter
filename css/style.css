@@ -37,19 +37,92 @@ html, body {
 ::-webkit-input-placeholder {
   color: white;
 }
-#header {
-  width: 800px;
+#top {
   height: 60px;
+  width: 800px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+#header {
+  width: 300px;
+  height: 60px;
+  line-height: 60px;
+  float: left;
   background-color: #34495e;
   padding-left: 20px;
-  margin-bottom: 40px;
-}
+  }
 
 #header h3 {
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 500;
   letter-spacing: 1px;
   color: white;
+  margin-top: 0;
   font-size: 30px;
-  line-height: 60px;
 }
+
+.share {
+  width: 200px;
+  float: right;
+  height: 60px;
+  background-color: #34495e;
+  padding-top: 13px;
+  text-align: center;
+}
+
+
+#fonts {
+  margin-left: 3px;
+  margin-bottom: 20px;
+}
+.font {
+  margin-top: 20px;
+  height: 150px;
+  width: 125px;
+  background: white;
+  display: inline-block;
+  margin-left: 2px;
+  margin-right: 2px;
+  cursor: pointer;
+}
+
+.text {
+  height: 125px;
+  line-height: 125px;
+  font-size: 50px;
+  text-align: center;
+}
+
+.text:hover {
+  background-color: #F08B8B;
+}
+.font_title {
+  height: 25px; 
+  background: #34495e;
+  color: white;
+  text-align: center;
+  letter-spacing: 1px;
+  line-height: 25px;
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif !important;
+
+}
+
+#times {
+  font-family: 'Times New Roman';
+}
+
+#arial {
+  font-family: 'Arial';
+}
+
+#helvetica {
+  font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+a {
+  text-decoration: none;
+  margin-left: 4px;
+  margin-right: 4px;
+}
+
+
