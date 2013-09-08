@@ -7,24 +7,75 @@
   <body>
 
   <div id="main">
-    <h3>3D Text Generator</h3>
+  <div id="top">
+    <div id="header">
+      <h3>3D Text Generator</h3>
+    </div>
+    <div class="share">
+      <!-- sharer links here -->
+      <a href="#" class="social">
+        <img src="img/white_email.png"/>
+      </a>
+      <a href="#" class="social">
+        <img src="img/white_facebook.png"/>
+      </a>
+      <a class="social" href="#">
+          <img src="img/white_tumblr.png"/>
+      </a>
+      <a class="social" href="#">
+        <img src="img/white_twitter.png"/>
+      </a>
+    </div>
+  </div>
 
-    <input type="text" id="text"/>
 
     <div class="preview">
         <div id="text_container">
           <!-- renders webgl here -->
         </div>
     </div>
-    <div class="share">
-      <!-- sharer links here -->
+    <div id="input_text">
+      <input type="text" id="text" maxlength="18" placeholder="Type text here"/>
+      <button type="button" id="start">start</button>
     </div>
 
+<<<<<<< HEAD
     <div class="render_demo">
       <button id="render">Render Gif</button>
     </div>
 
   </div>
+=======
+    <div id="fonts">
+      <div id="helvetica" class="font">
+        <div class="text">Aa</div>
+        <div id="helvetica" class="font_title">Helvetica</div>
+      </div>
+      <div id="arial" class="font">
+        <div class="text">Aa</div>
+        <div id="arial" class="font_title">Arial</div>
+      </div>
+      <div id="times" class="font">
+        <div class="text">Aa</div>
+        <div id="times" class="font_title">Times</div>
+      </div>
+      <div id="times" class="font">
+        <div class="text">Aa</div>
+        <div id="times" class="font_title">Times</div>
+      </div>
+      <div id="times" class="font">
+        <div class="text">Aa</div>
+        <div id="times" class="font_title">Times</div>
+      </div>
+      <div id="times" class="font">
+        <div class="text">Aa</div>
+        <div id="times" class="font_title">Times</div>
+      </div>
+
+    </div>
+
+     </div>
+>>>>>>> db9f2b9a3dd585a0f5eb13113c385cd5537e5673
 
   <script src="js/three.js"></script>
   <script src="js/blackout_sunrise.typeface.js"></script>
@@ -79,6 +130,18 @@
       if (text != inputText.value) {
         text = inputText.value;
         window.texter.api.setText(text);
+      }
+    }
+
+    var start = document.getElementById('start');
+    
+    start.onclick = function() {
+      window.texter.api.toggleAnimation();
+
+      if (window.texter.api.isAnimating()) {
+        start.innerHTML = "stop";
+      } else {
+        start.innerHTML = "start";
       }
     }
   </script>
