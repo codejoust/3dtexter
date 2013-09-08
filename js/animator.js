@@ -25,7 +25,8 @@ function ThreeDTexter(){
 		},
 		targetRotation: 0,
 		rotationRate: Math.PI / 60,
-		rotating: false
+		rotating: false,
+		axis: "y"
 	};
 
 	var exports = {};
@@ -56,6 +57,7 @@ function ThreeDTexter(){
 		text3d.computeBoundingBox();
 
 		var centerOffset = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
+		opts.verticalOffset = -0.5 * ( text3d.boundingBox.max.y - text3d.boundingBox.min.y );
 
 		this.makeMaterial();
 
@@ -63,7 +65,9 @@ function ThreeDTexter(){
 
 		var material = new THREE.MeshFaceMaterial(materials);
 
-		text = new THREE.Mesh( text3d,  material);
+		opts.mesh = text = new THREE.Mesh( text3d,  material);
+
+		opts.mesh.position.x = centerOffset;
 
 		for (var face in text.geometry.faces) {
 			if (text.geometry.faces[face].normal.z != 0) {
@@ -73,12 +77,8 @@ function ThreeDTexter(){
 
 		opts.text.canvas = text;
 
-		text.position.x = centerOffset;
-		text.position.y = 40;
-		text.position.z = -opts.text.options.height / 2;
-
-		text.rotation.x = 0;
-		text.rotation.y = Math.PI * 2;
+		this.setAxis(opts.axis);
+		
 		return text;
 	};
 
@@ -92,6 +92,30 @@ function ThreeDTexter(){
 			opts.text.options.sideMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.sideColor, shading: THREE.FlatShading} );
 		}
 	};
+
+	this.setAxis = function(axis) {
+		if (axis == "x") {
+			opts.camera.position.set( 0, 0, 500 );
+
+			opts.mesh.position.y = opts.verticalOffset;
+			opts.mesh.position.z = -opts.text.options.height / 2;
+
+			opts.mesh.rotation.x = 0;
+			opts.mesh.rotation.y = Math.PI * 2;
+
+			opts.axis = "x";
+		} else {
+			opts.camera.position.set( 0, 150, 500 );
+
+			opts.mesh.position.y = 40;
+			opts.mesh.position.z = -opts.text.options.height / 2;
+
+			opts.mesh.rotation.x = Math.PI * 2;
+			opts.mesh.rotation.y = 0;
+
+			opts.axis = "y";
+		}
+	}
 
 	this.setupCanvas = function(){
 
@@ -129,7 +153,11 @@ function ThreeDTexter(){
 		requestAnimationFrame( animate );
 
 		if (opts.rotating) {
-			opts.group.rotation.y += opts.rotationRate;
+			if (opts.axis == "x") {
+				opts.group.rotation.x += opts.rotationRate;
+			} else {
+				opts.group.rotation.y += opts.rotationRate;
+			}
 		}
 
 		render();
@@ -138,6 +166,7 @@ function ThreeDTexter(){
 	this.animate = animate;
 
 	this.stop = function() {
+		opts.group.rotation.x = 0;
 		opts.group.rotation.y = opts.targetRotation;
 
 		render();
@@ -180,6 +209,15 @@ function ThreeDTexter(){
    	}
    	this.api.isAnimating = function() {
    		return opts.rotating;
+   	}
+   	this.api.setAxis = function(axis) {
+   		if (opts.rotating) {
+   			self.stop();
+   			self.setAxis(axis);
+   			self.toggleAnimation();
+   		} else {
+   			self.setAxis(axis);
+   		}
    	}
 
 
