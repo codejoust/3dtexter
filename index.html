@@ -44,6 +44,9 @@
       <button id="render">Render Gif</button>
     </div>
 
+    <button id="axis_x">x</button>
+    <button id="axis_y">y</button>
+
     <div id="fonts">
       <div id="helvetica" class="font">
         <div class="text">Aa</div>
@@ -153,6 +156,20 @@
         start.innerHTML = "start";
       }
     }
+
+    document.getElementById('axis_x')
+     .addEventListener('click', function(evt){
+      evt.preventDefault();
+
+      window.texter.api.setAxis("x");
+    });
+
+     document.getElementById('axis_y')
+     .addEventListener('click', function(evt){
+      evt.preventDefault();
+
+      window.texter.api.setAxis("y");
+    });
   </script>
   </body>
 </html>
