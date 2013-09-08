@@ -76,12 +76,12 @@
     </div>
 
     <div class="form-group" id="primary">
-      <label for="hidden-input">Primary Color</label>
-		<input type="hidden" id="hidden-input" class="demo" value="#3f6375">
+      <label for="primary-color">Primary Color</label>
+		<input type="hidden" id="primary-color" class="demo" value="#3f6375">
 	</div>
   <div class="form-group" id="secondary">
-		<label for="hidden-input">Secondary Color</label>
-		<input type="hidden" id="hidden-input" class="demo" value="#b85dd4">
+		<label for="secondary-color">Secondary Color</label>
+		<input type="hidden" id="secondary-color" class="demo" value="#b85dd4">
 	</div>
 
      </div>
@@ -182,6 +182,10 @@
     })
 */
 
+  function $id(nm){
+    return document.getElementById(nm);
+  }
+
     var inputText = document.getElementById('text');
     var text = "hello world";
 
@@ -216,7 +220,7 @@
           window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
           window.texter.render();
           this.className += ' selected';
-        })
+        });
         if (text_font.className.indexOf('selected') !== -1){
           window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
           window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
@@ -224,16 +228,25 @@
       })(font_selects[i]);
     }
 
+    $id('primary-color').addEventListener('change', function(evt){
+      window.texter.api.setTextOption('textColor', parseInt($id('primary-color').value.substr(1), 16));
+      window.texter.makeMaterial();
+      console.log('whatever');
+    });
 
-    document.getElementById('axis_x')
-     .addEventListener('click', function(evt){
+    $id('secondary-color').addEventListener('change', function(evt){
+      window.texter.api.setTextOption('sideColor', parseInt($id('secondary-color').value.substr(1), 16));
+      window.texter.makeMaterial();
+      console.log('whatever');
+    });
+
+    $id('axis_x').addEventListener('click', function(evt){
       evt.preventDefault();
 
       window.texter.api.setAxis("x");
     });
 
-     document.getElementById('axis_y')
-     .addEventListener('click', function(evt){
+    $id('axis_y').addEventListener('click', function(evt){
       evt.preventDefault();
 
       window.texter.api.setAxis("y");

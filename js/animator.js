@@ -1,4 +1,9 @@
 
+
+function $id(nm){
+	return document.getElementById(nm);
+}
+
 function ThreeDTexter(){
 
 	var opts = this.opts = {
@@ -36,12 +41,13 @@ function ThreeDTexter(){
 		opts.camera.position.set( 0, 150, 500 );
 		opts.scene = new THREE.Scene();
 		// add subtle blue ambient lighting
-      	var ambientLight = new THREE.AmbientLight(0x000044);
+      	/*var ambientLight = new THREE.AmbientLight(0x000044);
       	opts.scene.add(ambientLight);
       	// directional lighting
 	    var directionalLight = new THREE.DirectionalLight(0xffffff);
 	    directionalLight.position.set(1.5, 1, 2).normalize();
 	    opts.scene.add(directionalLight);
+	    */
 	}
 
 	this.drawTextInternal = function(text, text_options){
@@ -89,15 +95,12 @@ function ThreeDTexter(){
 		return text;
 	};
 
-
 	this.makeMaterial = function(){
-		if (!opts.text.options.textMaterial){
-			opts.text.options.textMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.textColor, shading: THREE.FlatShading} );
-		}
+		opts.text.options.textColor = parseInt($id('primary-color').value.substr(1), 16);
+		opts.text.options.sideColor = parseInt($id('secondary-color').value.substr(1), 16);
 
-		if (!opts.text.options.sideMaterial){
-			opts.text.options.sideMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.sideColor, shading: THREE.FlatShading} );
-		}
+		opts.text.options.textMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.textColor, shading: THREE.FlatShading} );
+		opts.text.options.sideMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.sideColor, shading: THREE.FlatShading} );
 	};
 
 	this.setAxis = function(axis) {
@@ -195,7 +198,6 @@ function ThreeDTexter(){
    		self.render();
    	}
    	this.api.setTextOption = function(option, value){
-   		console.log([option,value]);
    		self.opts.text.options[option] = value;
    	}
    	this.api.getTextOption = function(option){
@@ -206,6 +208,7 @@ function ThreeDTexter(){
    	}
    	this.api.toggleAnimation = function() {
    		opts.rotating = !opts.rotating;
+   		console.log('toggle animation');
 
    		if (!opts.rotating) {
    			self.stop();
