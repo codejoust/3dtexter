@@ -116,6 +116,10 @@ function 3DTexter(){
    	this.api.getTextOptions(){
    		return this.opts.text.options;
    	}
-
 }
 
+var inputText = document.getElementById('text');
+inputText.onkeypress = function() {
+	window.internals.drawTextInternal(inputText.value);
+	window.internals.render();
+}
