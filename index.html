@@ -33,29 +33,29 @@
     <div class="render_demo">
     </div>
     <div id="fonts">
-      <div id="helvetica" class="font">
+      <div data-font="helvetiker" style="font-family: helvetiker;" class="font typeface-js selected">
         <div class="text">Aa</div>
-        <div id="helvetica" class="font_title">Helvetica</div>
+        <div class="font_title">Helvetiker</div>
       </div>
-      <div id="arial" class="font">
-        <div class="text">Aa</div>
-        <div id="arial" class="font_title">Arial</div>
+      <div data-font="blackout" data-bold="true" class="font typeface-js">
+        <div style="font-family: blackout; font-weight: bold;" class="text">Aa</div>
+        <div class="font_title">Blackout</div>
       </div>
-      <div id="times" class="font">
+      <div data-font="digital-7" style="font-family: digital-7;" class="font typeface-js">
         <div class="text">Aa</div>
-        <div id="times" class="font_title">Times</div>
+        <div class="font_title">Digital 7</div>
       </div>
-      <div id="times" class="font">
+      <div data-font="varsity" style="font-family:varsity regular;" class="font typeface-js">
         <div class="text">Aa</div>
-        <div id="times" class="font_title">Times</div>
+        <div class="font_title">Varsity</div>
       </div>
-      <div id="times" class="font">
-        <div class="text">Aa</div>
-        <div id="times" class="font_title">Times</div>
+      <div data-font="viafont" style="font-family:viafont" class="font typeface-js">
+        <div class="text typeface-js">Aa</div>
+        <div class="font_title">Viafont</div>
       </div>
-      <div id="times" class="font">
-        <div class="text">Aa</div>
-        <div id="times" class="font_title">Times</div>
+      <div data-font="slant" style="font-family: Slant;" class="font typeface-js">
+        <div class="text typeface-js">Aa</div>
+        <div class="font_title">Slant</div>
       </div>
 
     </div>
@@ -92,8 +92,16 @@
      </div>
 
   <script src="js/three.js"></script>
+  <script src="js/gif-lib/gif.js"></script>
+  <script src="js/typeface-0.15.js"></script>
+
   <script src="js/blackout_sunrise.typeface.js"></script>
+  <script src="js/helvetiker_regular.typeface.js"></script>
   <script src="js/digital-7_regular.typeface.js"></script>
+  <script src="js/varsity_regular_varsity_regular.typeface.js"></script>
+  <script src="js/viafont_regular.typeface.js"></script>
+  <script src="js/slant_regular.typeface.js"></script>
+  
   <script src="js/base64.js"></script>
   <script src="js/animator.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -106,6 +114,45 @@
         color: '#eee' 
       }));
 
+    document.getElementById('render')
+      .addEventListener('click', function(evt){
+        var gif = new GIF({
+          workers: 4,
+          quality: 6
+        });
+
+        // or a canvas element
+
+        //gif.addFrame(document.getElementsByTagName('canvas')[0], {copy: true, delay: 80});
+
+        var gif_delay = 400,
+            frames = 6;
+        function push_frame(){
+          if (frames-- > 0){
+            gif.addFrame(document.getElementsByTagName('canvas')[0], {delay: gif_delay});
+            console.log('pusing frame');
+            setTimeout(function(){
+              push_frame();
+            }, gif_delay*2);
+          } else {
+            gif.render();
+          }
+        }
+        push_frame();
+
+/*
+        // or copy the pixels from a canvas context
+        gif.addFrame(ctx, {copy: true});
+*/
+
+        gif.on('finished', function(blob) {
+          window.open(URL.createObjectURL(blob));
+        });
+
+        
+      })
+    
+/*
     document.getElementById('render')
      .addEventListener('click', function(evt){
       evt.preventDefault();
@@ -138,8 +185,8 @@
         }
       }
       push_frame();
-
     })
+*/
 
     var inputText = document.getElementById('text');
     var text = "hello world";
@@ -162,6 +209,27 @@
         start.innerHTML = "start";
       }
     }
+
+    var font_selects = document.getElementsByClassName('font');
+    for (var i = 0; i < font_selects.length; i++){
+      (function(text_font){
+        text_font.addEventListener('click', function(evt){
+          window.texter.api.setText(inputText.value);
+          for (var i = 0; i < font_selects.length; i++){
+            font_selects[i].className = font_selects[i].className.replace(' selected', '');
+          }
+          window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
+          window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
+          window.texter.render();
+          this.className += ' selected';
+        })
+        if (text_font.className.indexOf('selected') !== -1){
+          window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
+          window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
+        }
+      })(font_selects[i]);
+    }
+
 
     document.getElementById('axis_x')
      .addEventListener('click', function(evt){
