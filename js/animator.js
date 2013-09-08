@@ -15,13 +15,15 @@ function ThreeDTexter(){
 				hover: 40,
 				curveSegments: 5,
 				bevelThickness: 4,
-				belvelSize: 1,
+				bevelSize: 1,
 				bevelEnabled: true,
 				font: "digital-7",
 				weight: 'normal'
 			}
 		},
-		targetRotation: 0
+		targetRotation: 0,
+		rotationRate: Math.PI / 60,
+		rotating: false
 	};
 
 	var exports = {};
@@ -31,7 +33,7 @@ function ThreeDTexter(){
 		opts.camera.position.set( 0, 150, 500 );
 		opts.scene = new THREE.Scene();
 
-	}
+	};
 
 	this.drawTextInternal = function(text, text_options){
 
@@ -52,12 +54,12 @@ function ThreeDTexter(){
 
 		text.position.x = centerOffset;
 		text.position.y = 40;
-		text.position.z = 0;
+		text.position.z = -opts.text.options.height / 2;
 
 		text.rotation.x = 0;
 		text.rotation.y = Math.PI * 2;
 		return text;
-	}
+	};
 
 
 	this.getMaterial = function(){
@@ -65,7 +67,7 @@ function ThreeDTexter(){
 			opts.text.options.material = new THREE.MeshNormalMaterial( { color: Math.random()*0xffffff } );
 		}		
 		return opts.text.options.material;
-	}
+	};
 
 	this.setupCanvas = function(){
 
@@ -79,7 +81,7 @@ function ThreeDTexter(){
 
 		opts.container.appendChild( opts.renderer.domElement );
 
-	}
+	};
 
 	this.bindEvents = function(){
 
@@ -88,15 +90,26 @@ function ThreeDTexter(){
 		document.addEventListener( 'touchmove', onDocumentTouchMove, false );
 		window.addEventListener( 'resize', onWindowResize, false );
 
-	}
+	};
 	
 	this.render = function(){
-		opts.group.rotation.y += ( opts.targetRotation - opts.group.rotation.y ) * 0.05;
+		// opts.group.rotation.y += ( opts.targetRotation - opts.group.rotation.y ) * 0.05;
 		opts.renderer.render( opts.scene, opts.camera );
-	}
+	};
 
 	this.animate = function(){
-		requestAnimationFrame( animate );
+		requestAnimationFrame( this.animate );
+
+		if (opts.rotating) {
+			opts.group.rotation.y += opts.rotationRate;
+		}
+
+		render();
+	};
+
+	this.stop = function() {
+		opts.group.rotation.y = opts.targetRotation;
+
 		render();
 	}
    
@@ -104,7 +117,8 @@ function ThreeDTexter(){
    	this.setup();
    	this.drawTextInternal('hello world');
    	this.setupCanvas();
-   	this.render(); 
+   	this.render();
+   	this.animate();
 
    	this.api = {version: 0.1};
 
@@ -128,6 +142,17 @@ function ThreeDTexter(){
    	this.api.getTextOptions = function(){
    		return self.opts.text.options;
    	}
+   	this.api.toggleAnimation = function() {
+   		opts.rotating = !opts.rotating;
+
+   		if (!opts.rotating) {
+   			self.stop();
+   		}
+   	}
+   	this.api.isAnimating = function() {
+   		return opts.rotating;
+   	}
+
 
    	return self;
 }
