@@ -18,21 +18,40 @@ html, body {
   height: 50px;
   width: 800px;
   background-color: #34495e;
+  font-size: 0px;
+
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 500;
 }
 
 #input_text input {
   background: transparent;
   padding-left: 15px;
-  width: 800px;
+  width: 700px;
   outline:none;
   font-size: 30px;
   line-height: 30px;
   border: none;
   padding-top: 5px;
-  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  font-weight: 500;
   letter-spacing: 1px;
   color: white;
+  vertical-align: middle;
+
+  display: inline-block;
+}
+#input_text button {
+  height: 100%;
+  width: 100px;
+  color: white;
+  font-size: 30px;
+  border: none;
+  vertical-align: top;
+  background-color: #555555;
+
+  display: inline-block;
+}
+#input_text button:hover {
+  background-color: #888888;
 }
 ::-webkit-input-placeholder {
   color: white;

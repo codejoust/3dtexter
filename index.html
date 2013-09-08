@@ -36,6 +36,7 @@
     </div>
     <div id="input_text">
       <input type="text" id="text" maxlength="18" placeholder="Type text here"/>
+      <button type="button" id="start">start</button>
     </div>
 
     <div id="fonts">
@@ -82,6 +83,18 @@
       if (text != inputText.value) {
         text = inputText.value;
         window.texter.api.setText(text);
+      }
+    }
+
+    var start = document.getElementById('start');
+    
+    start.onclick = function() {
+      window.texter.api.toggleAnimation();
+
+      if (window.texter.api.isAnimating()) {
+        start.innerHTML = "stop";
+      } else {
+        start.innerHTML = "start";
       }
     }
   </script>
