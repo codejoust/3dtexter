@@ -1,5 +1,5 @@
 html, body {
-  background-color: #D8E1E3;
+  background-color: #ecf0f1;
 }
 
 #main {
@@ -28,7 +28,28 @@ html, body {
   font-size: 30px;
   line-height: 30px;
   border: none;
-  padding-top: 2px;
+  padding-top: 5px;
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
   color: white;
+}
+::-webkit-input-placeholder {
+  color: white;
+}
+#header {
+  width: 800px;
+  height: 60px;
+  background-color: #34495e;
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+
+#header h3 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: white;
+  font-size: 30px;
+  line-height: 60px;
 }
