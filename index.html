@@ -26,7 +26,10 @@
   <script src="js/digital-7_regular.typeface.js"></script>
   <script src="js/animator.js"></script>
   <script>
-    window.texter = ThreeDTexter();
+    window.texter = new ThreeDTexter();
+    texter.api.setTextOption('material', new THREE.MeshLambertMaterial({
+        color: '#eee' 
+      }));
 
     var inputText = document.getElementById('text');
     var text = "hello world";

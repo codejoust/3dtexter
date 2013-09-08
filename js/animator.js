@@ -10,8 +10,8 @@ function ThreeDTexter(){
 		text: {
 			canvas: null,
 			options: {
-				size: 90,
-				height: 60,
+				size: 60,
+				height: 20,
 				hover: 40,
 				curveSegments: 5,
 				bevelThickness: 4,
@@ -27,10 +27,16 @@ function ThreeDTexter(){
 	var exports = {};
 
 	this.setup = function(){
-		opts.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
+		opts.camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 50, 1000 );
 		opts.camera.position.set( 0, 150, 500 );
 		opts.scene = new THREE.Scene();
-
+		// add subtle blue ambient lighting
+      	var ambientLight = new THREE.AmbientLight(0x000044);
+      	opts.scene.add(ambientLight);
+      	// directional lighting
+	    var directionalLight = new THREE.DirectionalLight(0xffffff);
+	    directionalLight.position.set(1.5, 1, 2).normalize();
+	    opts.scene.add(directionalLight);
 	}
 
 	this.drawTextInternal = function(text, text_options){
@@ -42,12 +48,13 @@ function ThreeDTexter(){
 		var textShapes = new THREE.FontUtils.generateShapes( text, opts.text.options );
 
 		var text3d = new THREE.ExtrudeGeometry( textShapes, opts.text.options );
-
+		
 		text3d.computeBoundingBox();
 
 		var centerOffset = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
 
 		text = new THREE.Mesh( text3d, this.getMaterial() );
+
 		opts.text.canvas = text;
 
 		text.position.x = centerOffset;
@@ -112,7 +119,6 @@ function ThreeDTexter(){
 
    	this.api.setText = function(text, options){
    		opts.group.remove(opts.text.canvas);
-
    		if (text != null && text.length > 0) {
    			self.drawTextInternal(text, options);
    			opts.group.add(opts.text.canvas);
