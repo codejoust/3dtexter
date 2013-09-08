@@ -1,6 +1,5 @@
-window.exports = {};
 
-window.exports.load = function(){
+function 3DTexter(){
 	var opts = this.opts = {
 		container: document.getElementById('text_container'),
 		camera: null,
@@ -9,9 +8,22 @@ window.exports.load = function(){
 		renderer: null,
 		text: {
 			canvas: null
+			options: {
+				size: 90,
+				height: 60,
+				hover: 40,
+				curveSegments: 5,
+				bevelThickness: 4,
+				belvelSize: 1,
+				bevelEnabled: true,
+				font: "digital-7",
+				weight: 'normal'
+			}
 		},
 		targetRotation: 0
 	};
+
+	var exports = {};
 
 	this.setup = function(){
 		opts.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
@@ -20,19 +32,13 @@ window.exports.load = function(){
 
 	}
 
-	this.drawTextInternal = function(text){
-		var options = {
-			size: 100,
-			height: 60,
-			hover: 40,
-			curveSegments: 5,
-			bevelThickness: 0.02,
-			belvelSize: 0.02,
-			bevelSegments: 8,
-			bevelEnabled: false,
-			font: "digital-7",
-			weight: 'normal'
-		};
+	this.drawTextInternal = function(text, text_options){
+
+		var options = ;
+
+		for (var opt in text_options){
+			options[opt] = text_options[opt];
+		}
 
 		var textShapes = new THREE.FontUtils.generateShapes( text, options );
 
@@ -70,7 +76,6 @@ window.exports.load = function(){
 
 	}
 
-
 	this.bindEvents = function(){
 
 		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
@@ -96,7 +101,21 @@ window.exports.load = function(){
    	this.setupCanvas();
    	this.render(); 
 
-   	window.internals = this;
-}
+   	this.api.setText(text, options){
+   		opts.group.remove(opts.text.canvas);
+		this.drawTextInternal(text, options);
+		opts.group.add(opts.text.canvas);
+   		this.render();
+   	}
+   	this.api.setTextOption(option, value){
+   		this.opts.text.options[option] = value;
+   	}
+   	this.api.getTextOption(option){
+   		return this.opts.text.options[option];
+   	}
+   	this.api.getTextOptions(){
+   		return this.opts.text.options;
+   	}
 
+}
 
