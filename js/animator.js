@@ -256,7 +256,7 @@ function ThreeDTexter(){
    		if (opts.rotating) {
    			self.stop();
    			self.setAxis(axis);
-   			self.toggleAnimation();
+   			self.api.toggleAnimation();
    		} else {
    			self.setAxis(axis);
    		}

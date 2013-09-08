@@ -45,7 +45,7 @@
         <div class="text">Aa</div>
         <div class="font_title">Digital 7</div>
       </div>
-      <div data-font="varsity" style="font-family:varsity regular;" class="font typeface-js">
+      <div data-font="varsity" style="font-family:varsity;" class="font typeface-js">
         <div class="text">Aa</div>
         <div class="font_title">Varsity</div>
       </div>
@@ -95,20 +95,27 @@
   <script src="js/gif-lib/gif.js"></script>
   <script src="js/typeface-0.15.js"></script>
 
+  <!-- fonts -->
   <script src="js/blackout_sunrise.typeface.js"></script>
   <script src="js/helvetiker_regular.typeface.js"></script>
   <script src="js/digital-7_regular.typeface.js"></script>
   <script src="js/varsity_regular_varsity_regular.typeface.js"></script>
   <script src="js/viafont_regular.typeface.js"></script>
   <script src="js/slant_regular.typeface.js"></script>
-  
+  <!-- end fonts -->
+
   <script src="js/base64.js"></script>
   <script src="js/animator.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
   <script src="js/jquery.minicolors.js"></script>
   <script src="js/script.js"></script>
+
+  <script type="text/javascript" src="http://api.filepicker.io/v1/filepicker.js"></script>
   <script>
+  filepicker.setKey('Adodsaz37ThKdMoOm548Oz');
+  
+
     window.texter = new ThreeDTexter();
     texter.api.setTextOption('material', new THREE.MeshLambertMaterial({
         color: '#eee' 
@@ -142,12 +149,71 @@
         push_frame();
         */
 
-        gif.on('finished', function(blob) {
+          
+function createImage(data){
+
+
+$.post('/backend/dude.php', {
+    img: data
+  }, function(resp, success){
+    console.log([resp, success]);
+  }
+});
+
+}
+/*)
+
+
+ // open the popup in the click handler so it will not be blocked
+    var w = window.open();
+    w.document.write('Uploading...');
+    // upload to imgur using jquery/CORS
+    // https://developer.mozilla.org/En/HTTP_access_control
+
+  $.ajax({
+        url: 'http://api.imgur.com/2/upload.json',
+        type: 'POST',
+        data: {
+            type: 'base64',
+            // get your key here, quick and fast http://imgur.com/register/api_anon
+            key: '4e56d284b459104',
+            name: 'neon.gif',
+            title: 'test title',
+            caption: 'test caption',
+            image: data.split(',')[1]
+        },
+        dataType: 'json'
+    }).success(function(data) {
+        w.location.href = data['upload']['links']['imgur_page'];
+    }).error(function() {
+        alert('Could not reach api.imgur.com. Sorry :(');
+        w.close();
+    });
+
+
+
+}
+    
+    */
+
+        gif.on('finished', function(blob, data) {
+
+
           window.open(URL.createObjectURL(blob));
+
+        
+
+ var reader = new FileReader();
+                reader.onload = function(event){
+                      createImage(event.target.result); //event.target.results contains the base64 code to create the image.
+                };
+                var base64 = reader.readAsDataURL(blob);//Convert the blob from clipboard to base64
+  
+
         });
 
         gif.on('progress', function(progress) {
-          progressbar.progressbar( "value", progress );
+          // $("#progressbar").progressbar( "value", progress*100 );
         })
 
 
@@ -252,12 +318,5 @@
       window.texter.api.setAxis("y");
     });
   </script>
-  <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
-  filepicker.setKey('Adodsaz37ThKdMoOm548Oz')
-  filepicker.store(inkblob, {filename: 'myCoolFile.txt'},
-    function(new_inkblob){
-        console.log(JSON.stringify(new_inkblob.url));
-    }
-);
-  </body>
+    </body>
 </html>
