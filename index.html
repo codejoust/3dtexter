@@ -117,7 +117,7 @@
     document.getElementById('render')
       .addEventListener('click', function(evt){
         var gif = new GIF({
-          workers: 4,
+          workers: 5,
           quality: 6
         });
 
@@ -125,6 +125,7 @@
 
         //gif.addFrame(document.getElementsByTagName('canvas')[0], {copy: true, delay: 80});
 
+        /*
         var gif_delay = 400,
             frames = 6;
         function push_frame(){
@@ -139,16 +140,14 @@
           }
         }
         push_frame();
-
-/*
-        // or copy the pixels from a canvas context
-        gif.addFrame(ctx, {copy: true});
-*/
+        */
 
         gif.on('finished', function(blob) {
           window.open(URL.createObjectURL(blob));
         });
 
+
+        window.texter.api.capture(gif);
         
       })
     
@@ -195,12 +194,14 @@
     var inputText = document.getElementById('text');
     var text = "hello world";
 
-    inputText.onkeyup = function() {
+    function update_text(){
       if (text != inputText.value) {
         text = inputText.value;
         window.texter.api.setText(text);
       }
     }
+
+    inputText.onkeyup = update_text;
 
     var start = document.getElementById('start');
     
@@ -226,6 +227,7 @@
           window.texter.api.setTextOption('weight', text_font.attributes['data-bold'] ? 'bold' : 'normal');
           window.texter.render();
           this.className += ' selected';
+          update_text();
         });
         if (text_font.className.indexOf('selected') !== -1){
           window.texter.api.setTextOption('font', text_font.attributes['data-font'].value);
@@ -233,18 +235,6 @@
         }
       })(font_selects[i]);
     }
-
-    $id('primary-color').addEventListener('change', function(evt){
-      window.texter.api.setTextOption('textColor', parseInt($id('primary-color').value.substr(1), 16));
-      window.texter.makeMaterial();
-      console.log('whatever');
-    });
-
-    $id('secondary-color').addEventListener('change', function(evt){
-      window.texter.api.setTextOption('sideColor', parseInt($id('secondary-color').value.substr(1), 16));
-      window.texter.makeMaterial();
-      console.log('whatever');
-    });
 
     $id('axis_x').addEventListener('click', function(evt){
       evt.preventDefault();

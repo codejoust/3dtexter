@@ -6,6 +6,8 @@ function $id(nm){
 
 function ThreeDTexter(){
 
+   	this.api = {version: 0.1};
+
 	var opts = this.opts = {
 		container: document.getElementById('text_container'),
 		camera: null,
@@ -37,7 +39,7 @@ function ThreeDTexter(){
 	var exports = {};
 
 	this.setup = function(){
-		opts.camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 50, 1000 );
+		opts.camera = new THREE.PerspectiveCamera( 60, $('.preview').width() / $('.preview').height(), 50, 1000 );
 		opts.camera.position.set( 0, 150, 500 );
 		opts.scene = new THREE.Scene();
 		// add subtle blue ambient lighting
@@ -67,7 +69,7 @@ function ThreeDTexter(){
 		var text3d = new THREE.TextGeometry(text, opts.text.options);
 
 		text3d.computeBoundingBox();
-		console.log(text3d.boundingBox);
+		//console.log(text3d.boundingBox);
 
 		var centerOffset = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
 		opts.verticalOffset = -0.5 * ( text3d.boundingBox.max.y - text3d.boundingBox.min.y );
@@ -171,6 +173,41 @@ function ThreeDTexter(){
 		render();
 	};
 
+
+	this.api.capture = function(gif){
+		self.stop();
+
+		var n = 10;
+
+		var canvas = document.getElementsByTagName('canvas')[0]
+
+		function run_capture(){
+			console.log('captureing');
+			gif.addFrame(canvas, {copy: true,delay: 100});
+		
+			if (opts.axis == "x") {
+				opts.group.rotation.x += opts.rotationRate*4;
+			} else {
+				opts.group.rotation.y += opts.rotationRate*4;
+			}
+			render();
+
+			setTimeout(function(){
+				if (n-- > 0){
+					run_capture();
+				} else {
+					gif.render();
+				}
+			}, 100);
+
+		}
+
+		run_capture();
+		
+		
+
+	}
+
 	this.stop = function() {
 		opts.group.rotation.x = 0;
 		opts.group.rotation.y = opts.targetRotation;
@@ -185,9 +222,6 @@ function ThreeDTexter(){
    	this.setupCanvas();
    	this.render();
    	this.animate();
-
-   	this.api = {version: 0.1};
-
 
    	this.api.setText = function(text, options){
    		opts.group.remove(opts.text.canvas);
@@ -208,7 +242,6 @@ function ThreeDTexter(){
    	}
    	this.api.toggleAnimation = function() {
    		opts.rotating = !opts.rotating;
-   		console.log('toggle animation');
 
    		if (!opts.rotating) {
    			self.stop();
