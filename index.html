@@ -252,5 +252,12 @@
       window.texter.api.setAxis("y");
     });
   </script>
+  <script type="text/javascript" src="//api.filepicker.io/v1/filepicker.js"></script>
+  filepicker.setKey('Adodsaz37ThKdMoOm548Oz')
+  filepicker.store(inkblob, {filename: 'myCoolFile.txt'},
+    function(new_inkblob){
+        console.log(JSON.stringify(new_inkblob.url));
+    }
+);
   </body>
 </html>
