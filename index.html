@@ -39,6 +39,13 @@
       <button type="button" id="start">start</button>
     </div>
 
+<<<<<<< HEAD
+    <div class="render_demo">
+      <button id="render">Render Gif</button>
+    </div>
+
+  </div>
+=======
     <div id="fonts">
       <div id="helvetica" class="font">
         <div class="text">Aa</div>
@@ -68,13 +75,53 @@
     </div>
 
      </div>
+>>>>>>> db9f2b9a3dd585a0f5eb13113c385cd5537e5673
 
   <script src="js/three.js"></script>
   <script src="js/blackout_sunrise.typeface.js"></script>
   <script src="js/digital-7_regular.typeface.js"></script>
+  <script src="js/base64.js"></script>
   <script src="js/animator.js"></script>
   <script>
-    window.texter = ThreeDTexter();
+    window.texter = new ThreeDTexter();
+    texter.api.setTextOption('material', new THREE.MeshLambertMaterial({
+        color: '#eee' 
+      }));
+
+    document.getElementById('render')
+     .addEventListener('click', function(evt){
+      evt.preventDefault();
+      
+      if (!confirm('rendering gif')) return;
+
+      var gif_renderer = new GifRenderer();
+      window.gif_renderer = gif_renderer;
+      var frames = 1;
+      var gif_delay = 200;
+      gif_renderer.set_delay(200);
+      var canvas = document.getElementsByTagName('canvas')[0];
+
+      function push_frame(){
+        if (frames-- == 0){
+          gif_renderer.done(function(data){
+            console.log(data);
+            var data_img = document.createElement('img');
+            data_img.src = data.dataURL;
+            document.body.appendChild(data_img);
+            alert('done!');
+          }, function(err){
+            alert(':( ' + err);
+          });
+        } else {
+          gif_renderer.add_frame(canvas);
+          setTimeout(function(){
+            push_frame();
+          }, gif_delay);
+        }
+      }
+      push_frame();
+
+    })
 
     var inputText = document.getElementById('text');
     var text = "hello world";
