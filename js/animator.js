@@ -18,7 +18,9 @@ function ThreeDTexter(){
 				bevelSize: 1,
 				bevelEnabled: true,
 				font: "digital-7",
-				weight: 'normal'
+				weight: 'normal',
+				textColor: 0xFF0000,
+				sideColor: 0x0000FF
 			}
 		},
 		targetRotation: 0,
@@ -55,7 +57,19 @@ function ThreeDTexter(){
 
 		var centerOffset = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
 
-		text = new THREE.Mesh( text3d, this.getMaterial() );
+		this.makeMaterial();
+
+		var materials = [opts.text.options.sideMaterial, opts.text.options.textMaterial];
+
+		var material = new THREE.MeshFaceMaterial(materials);
+
+		text = new THREE.Mesh( text3d,  material);
+
+		for (var face in text.geometry.faces) {
+			if (text.geometry.faces[face].normal.z != 0) {
+				text.geometry.faces[face].materialIndex = 1;
+			}
+		}
 
 		opts.text.canvas = text;
 
@@ -69,11 +83,14 @@ function ThreeDTexter(){
 	};
 
 
-	this.getMaterial = function(){
-		if (!opts.text.options.material){
-			opts.text.options.material = new THREE.MeshNormalMaterial( );
-		}		
-		return opts.text.options.material;
+	this.makeMaterial = function(){
+		if (!opts.text.options.textMaterial){
+			opts.text.options.textMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.textColor, shading: THREE.FlatShading} );
+		}
+
+		if (!opts.text.options.sideMaterial){
+			opts.text.options.sideMaterial = new THREE.MeshBasicMaterial( {color: opts.text.options.sideColor, shading: THREE.FlatShading} );
+		}
 	};
 
 	this.setupCanvas = function(){
@@ -99,13 +116,17 @@ function ThreeDTexter(){
 
 	};
 	
-	this.render = function(){
+	var render = function(){
 		// opts.group.rotation.y += ( opts.targetRotation - opts.group.rotation.y ) * 0.05;
 		opts.renderer.render( opts.scene, opts.camera );
 	};
 
-	this.animate = function(){
-		requestAnimationFrame( this.animate );
+	this.render = render;
+
+	var animate;
+
+	animate = function(){
+		requestAnimationFrame( animate );
 
 		if (opts.rotating) {
 			opts.group.rotation.y += opts.rotationRate;
@@ -113,6 +134,8 @@ function ThreeDTexter(){
 
 		render();
 	};
+
+	this.animate = animate;
 
 	this.stop = function() {
 		opts.group.rotation.y = opts.targetRotation;
