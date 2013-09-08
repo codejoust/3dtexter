@@ -46,9 +46,12 @@ html, body {
   font-size: 30px;
   border: none;
   vertical-align: top;
-  background-color: gray;
+  background-color: #555555;
 
   display: inline-block;
+}
+#input_text button:hover {
+  background-color: #888888;
 }
 ::-webkit-input-placeholder {
   color: white;
