@@ -137,3 +137,75 @@ function ThreeDTexter(){
 
    	return self;
 }
+
+
+function GifRenderer(){
+
+	// "class" inspired by github.com/h5bp/mothereffinganimatedgif
+
+	this.utils = {
+		rawDataURL: function(data) {
+        	return Base64.encode(data);
+        },
+        dataURL: function(rawData){
+        	return 'data:image/gif;base64,' + rawData;
+        },
+        binaryURL: function(data) {
+        	window.URL = window.URL || window.webkitURL;
+        	var blob = new Blob([data], {type: 'image/gif'});
+        	return window.URL.createObjectURL(blob);
+        }
+    };
+
+	this.frames = [];
+	this.delay = 200;
+	var self = this;
+
+	this.update_progress = function(progress){
+		console.log('Progress: ' + progress);
+	};
+
+	this.set_delay = function(new_delay){
+		this.delay = new_delay;
+	}
+
+	this.add_frame = function(canvas){
+		console.log(canvas);
+		var context = canvas.getContext('2d');
+		this.frames.push(context.getImageData(0, 0, canvas.height, canvas.width));
+	}
+
+	this.done = function(data_callback, error_callback){
+
+		var gifWorker = new Worker("js/gif-libs/omggif-worker.js");
+		this.gifWorker = gifWorker;
+
+		gifWorker.addEventListener('message', function (e) {
+            if (e.data.type === "progress") {
+                // Percent done, 0.0-0.1
+                self.update_progress(e.data.data);
+            } else if (e.data.type === "gif") {
+                var info = e.data;
+                info.binaryURL = self.utils.binaryURL( e.data.data );
+                info.rawDataURL = self.utils.rawDataURL( e.data.data );
+                info.dataURL = self.utils.dataURL( info.rawDataURL );
+                data_callback(info);
+            }
+        }, false);
+
+        gifWorker.addEventListener('error', function (e) {
+            error_callback(e);
+            gifWorker.terminate();
+        }, false);
+
+        gifWorker.postMessage({
+            frames: this.frames,
+            delay: this.delay,
+            matte: [255, 255, 255],
+            transparent: [0, 255, 0]
+        });
+	}
+
+	
+
+}
