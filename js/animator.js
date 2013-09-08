@@ -1,5 +1,6 @@
 
-function 3DTexter(){
+function ThreeDTexter(){
+
 	var opts = this.opts = {
 		container: document.getElementById('text_container'),
 		camera: null,
@@ -7,7 +8,7 @@ function 3DTexter(){
 		scene:  null,
 		renderer: null,
 		text: {
-			canvas: null
+			canvas: null,
 			options: {
 				size: 90,
 				height: 60,
@@ -34,15 +35,13 @@ function 3DTexter(){
 
 	this.drawTextInternal = function(text, text_options){
 
-		var options = ;
-
 		for (var opt in text_options){
-			options[opt] = text_options[opt];
+			opts.text.options[opt] = text_options[opt];
 		}
 
-		var textShapes = new THREE.FontUtils.generateShapes( text, options );
+		var textShapes = new THREE.FontUtils.generateShapes( text, opts.text.options );
 
-		var text3d = new THREE.ExtrudeGeometry( textShapes, options );
+		var text3d = new THREE.ExtrudeGeometry( textShapes, opts.text.options );
 
 		text3d.computeBoundingBox();
 
@@ -101,25 +100,25 @@ function 3DTexter(){
    	this.setupCanvas();
    	this.render(); 
 
-   	this.api.setText(text, options){
-   		opts.group.remove(opts.text.canvas);
-		this.drawTextInternal(text, options);
-		opts.group.add(opts.text.canvas);
-   		this.render();
-   	}
-   	this.api.setTextOption(option, value){
-   		this.opts.text.options[option] = value;
-   	}
-   	this.api.getTextOption(option){
-   		return this.opts.text.options[option];
-   	}
-   	this.api.getTextOptions(){
-   		return this.opts.text.options;
-   	}
-}
+   	this.api = {version: 0.1};
 
-var inputText = document.getElementById('text');
-inputText.onkeypress = function() {
-	window.internals.drawTextInternal(inputText.value);
-	window.internals.render();
+   	var self = this;
+
+   	this.api.setText = function(text, options){
+   		opts.group.remove(opts.text.canvas);
+		self.drawTextInternal(text, options);
+		opts.group.add(opts.text.canvas);
+   		self.render();
+   	}
+   	this.api.setTextOption = function(option, value){
+   		self.opts.text.options[option] = value;
+   	}
+   	this.api.getTextOption = function(option){
+   		return self.opts.text.options[option];
+   	}
+   	this.api.getTextOptions = function(){
+   		return self.opts.text.options;
+   	}
+
+   	return self;
 }

@@ -26,7 +26,17 @@
   <script src="js/digital-7_regular.typeface.js"></script>
   <script src="js/animator.js"></script>
   <script>
-    window.texter = 3DTexter();
+    window.texter = ThreeDTexter();
+
+    var inputText = document.getElementById('text');
+    var text = "hello world";
+
+    inputText.onkeyup = function() {
+      if (text != inputText.value) {
+        text = inputText.value;
+        window.texter.api.setText(text);
+      }
+    }
   </script>
   </body>
 </html>
