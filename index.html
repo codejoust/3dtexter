@@ -146,6 +146,10 @@
           window.open(URL.createObjectURL(blob));
         });
 
+        gif.on('progress', function(progress) {
+          progressbar.progressbar( "value", progress );
+        })
+
 
         window.texter.api.capture(gif);
         

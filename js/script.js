@@ -46,6 +46,7 @@ $(document).ready( function() {
         progressLabel.text( "Complete!" );
       }
     });
+    /*
     function progress() {
       var val = progressbar.progressbar( "value" ) || 0;
  
@@ -57,7 +58,7 @@ $(document).ready( function() {
     }
  
     setTimeout( progress, 3000 );
-			
+	*/		
 		});
   });
  
