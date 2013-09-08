@@ -64,7 +64,7 @@ function ThreeDTexter(){
 
 	this.getMaterial = function(){
 		if (!opts.text.options.material){
-			opts.text.options.material = new THREE.MeshNormalMaterial( { color: Math.random()*0xffffff } );
+			opts.text.options.material = new THREE.MeshNormalMaterial( );
 		}		
 		return opts.text.options.material;
 	};
