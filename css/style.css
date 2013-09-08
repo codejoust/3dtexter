@@ -1,6 +1,55 @@
+html, body {
+  background-color: #ecf0f1;
+}
+
 #main {
 	margin-left: auto;
 	margin-right: auto;
 
 	width: 800px;
+}
+
+.preview {
+  background-color: white;
+  height: 400px;
+}
+
+#input_text {
+  height: 50px;
+  width: 800px;
+  background-color: #34495e;
+}
+
+#input_text input {
+  background: transparent;
+  padding-left: 15px;
+  width: 800px;
+  outline:none;
+  font-size: 30px;
+  line-height: 30px;
+  border: none;
+  padding-top: 5px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: white;
+}
+::-webkit-input-placeholder {
+  color: white;
+}
+#header {
+  width: 800px;
+  height: 60px;
+  background-color: #34495e;
+  padding-left: 20px;
+  margin-bottom: 40px;
+}
+
+#header h3 {
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: white;
+  font-size: 30px;
+  line-height: 60px;
 }
