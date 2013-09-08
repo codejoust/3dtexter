@@ -1,6 +1,34 @@
+html, body {
+  background-color: #D8E1E3;
+}
+
 #main {
 	margin-left: auto;
 	margin-right: auto;
 
 	width: 800px;
+}
+
+.preview {
+  background-color: white;
+  height: 400px;
+}
+
+#input_text {
+  height: 50px;
+  width: 800px;
+  background-color: #34495e;
+}
+
+#input_text input {
+  background: transparent;
+  padding-left: 15px;
+  width: 800px;
+  outline:none;
+  font-size: 30px;
+  line-height: 30px;
+  border: none;
+  padding-top: 2px;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  color: white;
 }
