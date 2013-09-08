@@ -27,7 +27,7 @@ function ThreeDTexter(){
 	var exports = {};
 
 	this.setup = function(){
-		opts.camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 1000 );
+		opts.camera = new THREE.PerspectiveCamera( 70, window.innerWidth / window.innerHeight, 1, 1000 );
 		opts.camera.position.set( 0, 150, 500 );
 		opts.scene = new THREE.Scene();
 
@@ -47,9 +47,7 @@ function ThreeDTexter(){
 
 		var centerOffset = -0.5 * ( text3d.boundingBox.max.x - text3d.boundingBox.min.x );
 
-		var textMaterial =  new THREE.MeshNormalMaterial( { color: Math.random()*0xffffff } );
-
-		text = new THREE.Mesh( text3d, textMaterial );
+		text = new THREE.Mesh( text3d, this.getMaterial() );
 		opts.text.canvas = text;
 
 		text.position.x = centerOffset;
@@ -59,6 +57,14 @@ function ThreeDTexter(){
 		text.rotation.x = 0;
 		text.rotation.y = Math.PI * 2;
 		return text;
+	}
+
+
+	this.getMaterial = function(){
+		if (!opts.text.options.material){
+			opts.text.options.material = new THREE.MeshNormalMaterial( { color: Math.random()*0xffffff } );
+		}		
+		return opts.text.options.material;
 	}
 
 	this.setupCanvas = function(){
