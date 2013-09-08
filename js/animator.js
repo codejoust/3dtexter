@@ -112,8 +112,11 @@ function ThreeDTexter(){
 
    	this.api.setText = function(text, options){
    		opts.group.remove(opts.text.canvas);
-		self.drawTextInternal(text, options);
-		opts.group.add(opts.text.canvas);
+
+   		if (text != null && text.length > 0) {
+   			self.drawTextInternal(text, options);
+   			opts.group.add(opts.text.canvas);
+   		}
    		self.render();
    	}
    	this.api.setTextOption = function(option, value){
@@ -127,6 +130,4 @@ function ThreeDTexter(){
    	}
 
    	return self;
-
 }
-
