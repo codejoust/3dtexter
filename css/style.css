@@ -26,12 +26,13 @@ html, body {
 
   font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 500;
+  margin-bottom: 15px;
 }
 
 #input_text input {
   background: transparent;
   padding-left: 15px;
-  width: 700px;
+  width: 500px;
   outline:none;
   font-size: 30px;
   line-height: 30px;
@@ -50,13 +51,23 @@ html, body {
   font-size: 30px;
   border: none;
   vertical-align: top;
-  background-color: #7f8c8d;
   cursor: pointer;
-
   display: inline-block;
 }
+
+#axis_x {
+  background-color:#7492AF;
+}
+
+#axis_y {
+  background-color: #849AAF;
+}
+
+#start {
+  background-color: #11273d;
+}
 #input_text button:hover {
-  background-color: #888888;
+  background-color: #bdc3c7;
 }
 ::-webkit-input-placeholder {
   color: white;
@@ -64,7 +75,7 @@ html, body {
 #top {
   height: 60px;
   width: 800px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   margin-top: 20px;
 }
 #header {
@@ -86,18 +97,20 @@ html, body {
 }
 
 .share {
-  width: 200px;
-  float: right;
-  height: 60px;
+  width: 300px;
+  height:50px;
   background-color: #34495e;
-  padding-top: 13px;
+  padding-top: 9px;
   text-align: center;
+  display: inline-block;
+  background-color: #11273d;
+  margin-left: -2px;
 }
 
 
 #fonts {
   margin-left: 3px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 .font {
   margin-top: 20px;
@@ -160,7 +173,7 @@ a {
   background-color: #3f6375;
   margin-right: 50px;
   margin-left: 23px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .form-group#secondary {
@@ -175,4 +188,35 @@ a {
 }
 
 
+#render {
+  height: 50px;
+  width: 300px;
+  color: white;
+  font-size: 30px;
+  border: none;
+  vertical-align: top;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #34495e;
+  margin-left: 100px;
+  margin-bottom: 50px;
+  margin-right: -2px;
+}
 
+#render:hover, .share:hover {
+  background-color: #7f8c8d;
+}
+.ui-progressbar {
+    position: relative;
+    margin-bottom: 30px;
+  }
+  .progress-label {
+    position: absolute;
+    left: 45%;
+    top: 4px;
+    font-weight: bold;
+  }
+
+  #progressbar .ui-progressbar-value {
+    background-color:  #34495e;
+  }
