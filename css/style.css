@@ -145,4 +145,30 @@ a {
   margin-right: 4px;
 }
 
+.form-group {
+   font-family:"HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+   height: 200px;
+   width: 350px;
+   display: inline-block;
+}
+
+.form-group#primary {
+  background-color: #3f6375;
+  margin-right: 50px;
+  margin-left: 23px;
+  margin-bottom: 50px;
+}
+
+.form-group#secondary {
+  background-color: #b85dd4;
+}
+
+.form-group label {
+  padding-left: 20px;
+  position: relative;
+  top: 10px;
+  color: white;
+}
+
+
 
