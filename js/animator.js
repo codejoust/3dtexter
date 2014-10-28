@@ -177,7 +177,7 @@ function ThreeDTexter(){
 	this.api.capture = function(gif){
 		self.stop();
 
-		var n = 13;
+		var n = 20;
 
 		var canvas = document.getElementsByTagName('canvas')[0]
 
@@ -186,9 +186,9 @@ function ThreeDTexter(){
 			gif.addFrame(canvas, {copy: true,delay: 100});
 		
 			if (opts.axis == "x") {
-				opts.group.rotation.x += opts.rotationRate*4;
+				opts.group.rotation.x += Math.PI / 10;
 			} else {
-				opts.group.rotation.y += opts.rotationRate*6;
+				opts.group.rotation.y += Math.PI / 10;
 			}
 			render();
 
